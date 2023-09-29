@@ -1,9 +1,18 @@
 resources:
-- ../../base
+  - ../../base
+
+#patches:
+# - path: replicas.yaml
 
 patches:
- - path: replicas.yaml
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: mywebapp
+      spec:
+        replicas: 2
 
 configMapGenerator:
-- name: mykustom-map
-  env: config.properties
+  - name: mykustom-map
+    env: config.properties
